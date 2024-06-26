@@ -7,26 +7,27 @@ function CreateTask({formData, onFormChange}){
     const dispatch = useDispatch();
 
     const addNewTask = () => {
-        console.log(formData);
-
-        if(formData.title == ''){
+        if(formData.title === ''){
             alert("Task Title can't be empty.");
             return false;
         }
-        if(formData.details == ''){
+        if(formData.details === ''){
             alert("Task Details can't be empty.");
             return false;
         }
+        if(formData.category === ''){
+            alert("Have to select an option.");
+            return false;
+        }
 
-        const now = new Date();
+        console.log(formData);
 
         const task = {
             ...formData,
             id: Date.now(),
             comments: [],
             attach: [],
-            category: "working",
-            createdAt: format(now, 'MM-dd-yyyy')
+            createdAt: format(new Date(), 'MM-dd-yyyy')
         }
 
         // push form data to task list
@@ -34,8 +35,8 @@ function CreateTask({formData, onFormChange}){
 
         formData.title = "";
         formData.details = "";
-
-        console.log(testingCount);
+        formData.category= "";
+        formData.tag= "";
     }
 
     return (
@@ -59,7 +60,7 @@ function CreateTask({formData, onFormChange}){
                     value={formData.details}
                     onChange={onFormChange}/>
 
-                <select name="category" value={formData.category} onChange={onFormChange}>
+                <select className="pl-2 mr-3" name="category" value={formData.category} onChange={onFormChange}>
                     <option value="">-- Select an option --</option>
                     <option value="working">Working</option>
                     <option value="pending">Pending</option>
@@ -67,11 +68,19 @@ function CreateTask({formData, onFormChange}){
                     <option value="done">Done</option>
                 </select>
 
+                <select name="tag" value={formData.tag} onChange={onFormChange}>
+                    <option value="">-- Select an tag --</option>
+                    <option value="design">Design</option>
+                    <option value="development">Development</option>
+                    <option value="discussion">Discussion</option>
+                </select>
+
                 <button
                     className="flex items-center justify-center w-6 h-6 ml-auto text-indigo-500 rounded hover:bg-indigo-500 hover:text-indigo-100"
                     onClick={addNewTask}>
                     <svg className="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M12 6v6m0 0v6m0-6h6m-6 0H6" />
+                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2"
+                              d="M12 6v6m0 0v6m0-6h6m-6 0H6"/>
                     </svg>
                 </button>
             </div>

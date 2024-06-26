@@ -47,6 +47,7 @@ export default function Card({data}){
                         <span className="ml-1 leading-none">{data.attach.length}</span>
                     </div>
                     <img className="w-6 h-6 ml-auto rounded-full"
+                         alt="creator image"
                          src='https://randomuser.me/api/portraits/women/26.jpg'/>
                 </div>
             </div>

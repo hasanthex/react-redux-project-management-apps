@@ -6,7 +6,7 @@ import TestingBoard from "./components/board/TestingBoard";
 import CreateTask from "./components/board/CreateTask";
 
 function App() {
-  const [formData, setFormData] = useState({ title: "", details: ""});
+  const [formData, setFormData] = useState({ title: "", details: "", category: "", tag: ""});
 
   const handleFormChange = (event) => {
     const { name, value} = event.target;

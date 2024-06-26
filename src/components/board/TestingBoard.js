@@ -1,18 +1,14 @@
 import { useSelector, useDispatch } from "react-redux";
-import { add, remove } from "../../redux/board/boardActions";
+import Card from "./card";
 
 function TestingBoard({ }){
 
-    const testingCount = useSelector((state) => state.item.length);
-    const dispatch = useDispatch();
+    const testingTaskList = useSelector((state) => state.item);
 
-    const addItem = (value) => {
-        dispatch(add(value));
-    }
-
-    const removeItem = (id) => {
-        dispatch(remove(id));
-    }
+    const testingTaskCount = testingTaskList.reduce((accumulator, current) => {
+        if(current.category === 'testing')
+            return accumulator++;
+    }, 0);
 
     return (
         <div className="flex flex-col flex-shrink-0 w-72">
@@ -20,7 +16,7 @@ function TestingBoard({ }){
                 <span className="block text-sm font-semibold">Testing</span>
                 <span
                     className="flex items-center justify-center w-5 h-5 ml-2 text-sm font-semibold text-indigo-500 bg-white rounded bg-opacity-30">
-                    {testingCount}
+                    {testingTaskCount}
                 </span>
                 <button
                     className="flex items-center justify-center w-6 h-6 ml-auto text-indigo-500 rounded hover:bg-indigo-500 hover:text-indigo-100">
@@ -32,8 +28,11 @@ function TestingBoard({ }){
                 </button>
             </div>
             <div className="flex flex-col pb-2 overflow-auto">
-
                 {/*render list here*/}
+                {testingTaskList.map((data) => {
+                    if(data.category === 'testing')
+                        return <Card key={data.id} data={data} />
+                })}
 
             </div>
         </div>
